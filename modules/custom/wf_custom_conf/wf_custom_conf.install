@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function wf_custom_conf_schema() {
+  $schema['wf_states_conf'] = [
+    'description' => 'This is a custom table created by my custom module.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary Key: Unique ID for each Workflow State.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'wfstate_name' => [
+        'description' => 'Workflow State Name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+	  'wf_content_type' => [
+        'description' => 'Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'cus_logic' => [
+        'description' => 'Custom PHP code to be executed.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+	  'state_mand' => [
+        'description' => 'Workflow States mandatory fields.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+      'created' => [
+        'description' => 'The time that the record was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'wfstate_name' => ['wfstate_name'],'wf_content_type' => ['wf_content_type'],
+    ],
+  ];
+  
+  $schema['wf_states_conf_log'] = [
+    'description' => 'This is a custom table created by my custom module.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary Key: Unique ID for each Workflow State.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'wfsc_id' => [
+        'description' => 'Workflow States Conf Reference ID',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+	  
+      'logic_update' => [
+        'description' => 'Custom PHP code to be executed.',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+	  
+      'updated' => [
+        'description' => 'The time that the record was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'wfsc_id' => ['wfsc_id'],
+    ],
+  ];
+  
+  
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function wf_custom_conf_install() {
+  \Drupal::database()->schema()->createTable('wf_states_conf', wf_custom_conf_schema()['wf_states_conf']);
+  \Drupal::database()->schema()->createTable('wf_states_conf_log', wf_custom_conf_schema()['wf_states_conf_log']);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function wf_custom_conf_uninstall() {
+  \Drupal::database()->schema()->dropTable('wf_states_conf');
+  \Drupal::database()->schema()->dropTable('wf_states_conf_log');
+}

@@ -1,0 +1,7 @@
+custom_library.content:
+  path: '/admin/config/cdetails'
+  defaults:
+    _controller: '\Drupal\custom_library\Controller\CustomLibraryController::content'
+    _title: 'Custom Details'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,3 @@
+wf_custom_conf_js:
+  js:
+    js/wf_custom_conf.js: {}

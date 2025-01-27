@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function custom_library_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.custom_library':
+      return '<p>' . t('This module provides a custom page.') . '</p>';
+  }
+}
+
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+
+/**/
+function custom_library_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+	// form id is the combination of content type and form
+	if ($form_id == 'node_jobs_form') {
+		// below code is to unset the revision tab which comes by default in Drupal form 
+		unset($form['revision_information']);
+		// Below code is to rename the label w
+		if(isset($form['revision_log']['widget'][0]['value']['#title'])){
+			$form['revision_log']['widget'][0]['value']['#title']= t('Comment');
+		}
+		// below code is to add a Javascript function on click event
+		if (isset($form['actions']['submit']['#attributes']['onclick'])) {
+			$form['actions']['submit']['#attributes']['onclick'] .= ' wf_state_validation();'; 
+		} else { 
+			$form['actions']['submit']['#attributes']['onclick'] = 'wf_state_validation();'; 
+		} 
+		// below is to add the Custom JS as per the content type 
+		$form['#attached']['library'][] = 'custom_library/customlibrary_js';
+		//$form['#attached']['library'][] = drupal_get_path('module', 'custom_library').'/js/custom_js.js';
+		
+  }
+}
+
+
+function custom_library_form_after_build(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
+	if (isset($form['revision_log']['widget'][0]["#title"])) { 
+		echo "came here 2 <pre>"; var_dump($form['revision_log']['widget'][0]["#title"]);exit;
+		$form['revision_log']['widget'][0]["#title"] = t('Comment'); 
+	} 
+	return $form; 
+}

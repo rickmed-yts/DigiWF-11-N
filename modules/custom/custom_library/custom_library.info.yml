@@ -1,0 +1,7 @@
+name: 'Custom Library'
+type: module
+description: 'List of Library methods for DigiWorkflow.'
+core_version_requirement: ^11
+package: DigiWorkflow
+dependencies:
+  - workflows:workflows

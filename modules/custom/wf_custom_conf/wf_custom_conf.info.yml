@@ -1,0 +1,7 @@
+name: 'WF-States Logic'
+type: module
+description: 'Workflow State driven logics for DigiWorkflow.'
+core_version_requirement: ^11
+package: DigiWorkflow
+dependencies:
+  - workflows:workflows

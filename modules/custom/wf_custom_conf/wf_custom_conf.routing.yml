@@ -1,0 +1,28 @@
+wf_custom_conf.wflist:
+  path: '/admin/config/wflist'
+  defaults:
+    _controller: '\Drupal\wf_custom_conf\Controller\WfCustomConfController::fetch_wf_list'
+    _title: 'Workflow Lists'
+  requirements:
+    _permission: 'administer site configuration'
+wf_custom_conf.wfstates:
+  path: '/admin/config/wfstates'
+  defaults:
+    _controller: '\Drupal\wf_custom_conf\Controller\WfCustomConfController::fetch_wf_states_list'
+    _title: 'Workflow States Lists'
+  requirements:
+    _permission: 'administer site configuration'
+wf_custom_conf.ctfields:
+  path: '/admin/config/ctfields'
+  defaults:
+    _controller: '\Drupal\wf_custom_conf\Controller\WfCustomConfController::ct_fields_by_content_type'
+    _title: 'List of Fields of a Content Type'
+  requirements:
+    _permission: 'administer site configuration'
+wf_custom_conf.form:
+  path: '/admin/config/wf_states'
+  defaults:
+    _form: '\Drupal\wf_custom_conf\Form\WorkFlowStatesForm'
+    _title: 'Configure the WorkFlow States'
+  requirements:
+    _permission: 'access content'
